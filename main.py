@@ -24,4 +24,5 @@ df = pd.read_csv("data/cleaned_data.csv")
 # Add a new column with the battle description
 df['Description'] = df['Battle'].apply(get_battle_description)  
 
+# Save the updated dataset
 df.to_csv("output_dataset.csv", index=False)
