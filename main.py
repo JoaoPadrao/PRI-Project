@@ -23,6 +23,30 @@ def get_battle_description_wikipedia(battle_name):
     else:
         return "No description available"
 
+def get_battle_description_wikipedia_siege(battle_name,battle_year):
+    # Search for the battle name with "Battle of" prefix
+    format_battle = battle_year
+    if isinstance(battle_year, str) and battle_year.startswith('-'):
+        format_battle = format_battle_name_BC(battle_year)
+
+    search_name = f"Battle of {battle_name} {format_battle}"
+    page = wiki_wiki.page(search_name)
+    if page.exists():
+        # Split the summary into paragraphs
+        paragraphs = page.summary.split('\n')
+        # Return the first paragraph
+        return paragraphs[0] if paragraphs else "No description available"
+    else:
+        return "No description available" 
+
+
+def format_battle_name_BC(battle_year):
+    int_year = int(battle_year)
+    if int_year < 0:
+        return f"{abs(int_year)} BC"
+
+
+
 
 # ---------------------- 10000BATTLES API ----------------------
 
@@ -49,9 +73,10 @@ def get_battle_list():
 # Format the ID of the dataset to match the website dropdown list
 def format_battle_name(battle_name):
     for i, char in enumerate(battle_name):
-        if char.isdigit():  # Find the first digit
+        if char.isdigit() or (char == '-' and i+1 < len(battle_name) and battle_name[i+1].isdigit()):
             return f"{battle_name[:i].strip()}, {battle_name[i:].strip()}"
     return battle_name
+
 
 # Get the URL of the battle from the list
 def get_battle_url_from_list(battle_name, battle_list):
@@ -81,7 +106,10 @@ def get_battle_description_10000battles(battle_url):
     else:
         return "Failed to retrieve page"
 
-# Output the dataset with the descriptions
+
+# ---------------------- MAIN ----------------------
+
+# Output the dataset with the descriptions using the 2 APIs 
 def output_dataset(df, battle_list):
     def get_combined_description(row):
         description = get_battle_description_wikipedia(row['Battle'])
@@ -94,10 +122,48 @@ def output_dataset(df, battle_list):
     df['Description'] = df.apply(get_combined_description, axis=1)
     return df
 
-df = pd.read_csv("data/cleaned_data.csv")
+# Update the missing descriptions using Wikipedia
+def update_missing_descriptions_with_siege(df):
+    missing_description_df = df[df['Description'] == "No description available"].copy()
 
-battle_list = get_battle_list()
+    missing_description_df['Description'] = missing_description_df.apply(
+        lambda row: get_battle_description_wikipedia_siege(row['Battle'],row['Year']),
+        axis=1
+    )
+    
+    df.update(missing_description_df)
+    
+    return df
 
-df = output_dataset(df, battle_list)
 
-df.to_csv("test_dataset.csv", index=False)
+# Update the missing descriptions using 10000battles
+def update_missing_descriptions(df, battle_list):
+    def get_description(row):
+        battle_url = get_battle_url_from_list(row['ID'], battle_list)
+        if battle_url:
+            return get_battle_description_10000battles(battle_url)
+        
+        return row['Description']
+
+    missing_description_df = df[df['Description'] == "No description available"].copy()
+
+    missing_description_df['Description'] = missing_description_df.apply(get_description, axis=1)
+
+    df.update(missing_description_df)
+
+    return df
+
+# ---------------------- EXAMPLE USAGE ----------------------
+
+df = pd.read_csv("final_cleaned_dataset.csv")
+
+# Apply the "Siege of" description update to rows with missing descriptions
+df = update_missing_descriptions_with_siege(df)
+
+# Apply the 10000battles description update to rows with missing descriptions
+#battle_list = get_battle_list()
+#df = update_missing_descriptions(df,battle_list)
+
+# Save the resulting dataset
+df.to_csv("final_dataset.csv", index=False)
+
