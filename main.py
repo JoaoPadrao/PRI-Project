@@ -39,6 +39,43 @@ def get_battle_description_wikipedia_siege(battle_name,battle_year):
     else:
         return "No description available" 
 
+def get_battle_description_wikipedia_short(battle_name, battle_year, current_description):
+    # Convert the year to a string for comparison.
+    battle_year = str(battle_year) if battle_year else None
+
+    # Search for the battle name with "Battle of" prefix.
+    search_name = f"Battle of {battle_name}"
+    page = wiki_wiki.page(search_name)
+    
+    if page.exists():
+        # Check if the page is a disambiguation page by looking for certain phrases.
+        if "may refer to" in page.summary or len(page.links) > 1:
+
+            disambiguation_url = page.fullurl
+            response = requests.get(disambiguation_url)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                # Find all links on the disambiguation page.
+                links = soup.find_all('a', href=True)
+
+                for link in links:
+                    if battle_name and battle_year in link.get_text():
+                        print(link.get_text())
+                        specific_page = wiki_wiki.page(link.get_text())
+                        if specific_page.exists():
+                            print("Encontrei a batalha")
+                            # Return the first paragraph from the specific battle page.
+                            paragraphs = specific_page.summary.split('\n')
+                            return paragraphs[0] if paragraphs else "No description available"
+                        else:
+                            print("Não encontrei a batalha")
+                return current_description
+        else:
+            return current_description
+    else:
+        return current_description
+
 
 def format_battle_name_BC(battle_year):
     int_year = int(battle_year)
@@ -135,6 +172,19 @@ def update_missing_descriptions_with_siege(df):
     
     return df
 
+# Update the ambiguous descriptions using Wikipedia
+def update_ambiguous_descriptions(df):
+    # Use 'na=False' to safely handle NaN values in the 'Description' column.
+    ambiguous_desc_df = df[df['Description'].str.endswith("to:", na=False)]
+
+    # Update the descriptions using .loc to avoid SettingWithCopyWarning.
+    df.loc[ambiguous_desc_df.index, 'Description'] = ambiguous_desc_df.apply(
+        lambda row: get_battle_description_wikipedia_short(row['Battle'], row['Year'], row['Description']),
+        axis=1
+    )
+    
+    # Return the modified DataFrame.
+    return df
 
 # Update the missing descriptions using 10000battles
 def update_missing_descriptions(df, battle_list):
@@ -153,17 +203,34 @@ def update_missing_descriptions(df, battle_list):
 
     return df
 
+
+#---------------------- DROP ROWS ----------------------
+def drop_rows(df):
+    # Remove rows where the 'Description' is "No description available"
+    df = df[df['Description'] != "No description available"]
+
+    # Drop rows where 'Description' ends with "to:", but first ensure there are no NaN values
+    df = df[~df['Description'].fillna("").str.endswith("to:")]
+
+    return df
+
 # ---------------------- EXAMPLE USAGE ----------------------
 
-df = pd.read_csv("final_cleaned_dataset.csv")
+df = pd.read_csv("final.csv")
+
+# Apply the drop rows function
+#df = drop_rows(df)
+
+# Apply for ambiguous descriptions
+df = update_ambiguous_descriptions(df)
 
 # Apply the "Siege of" description update to rows with missing descriptions
-df = update_missing_descriptions_with_siege(df)
+#df = update_missing_descriptions_with_siege(df)
 
 # Apply the 10000battles description update to rows with missing descriptions
 #battle_list = get_battle_list()
 #df = update_missing_descriptions(df,battle_list)
 
 # Save the resulting dataset
-df.to_csv("final_dataset.csv", index=False)
+df.to_csv("final_test.csv", index=False)
 
