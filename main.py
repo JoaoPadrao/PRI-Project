@@ -77,6 +77,24 @@ def get_battle_description_wikipedia_short(battle_name, battle_year, current_des
         return current_description
 
 
+def get_battle_description_wikipedia_2_paragraphs(battle_name,battle_year,current_description):
+    search_name = f"Battle of {battle_name} ({battle_year})"
+    print(search_name)
+    page = wiki_wiki.page(search_name)
+    if page.exists():
+        print("Page exists")
+        paragraphs = page.summary.split('\n')
+        print(paragraphs)
+        if len(paragraphs) > 1:
+            return paragraphs[0] + " " + paragraphs[1]
+        elif len(paragraphs) == 1:
+            return paragraphs[0]
+        else:
+            return current_description
+    else:
+        print("Page does not exist")
+        return
+
 def format_battle_name_BC(battle_year):
     int_year = int(battle_year)
     if int_year < 0:
@@ -203,6 +221,22 @@ def update_missing_descriptions(df, battle_list):
 
     return df
 
+# Update the descriptions with less than 30 words
+def update_short_descriptions(df):
+
+    short_desc_df = df[df['Description'].str.split().str.len() < 30].copy()
+
+    print(short_desc_df.head())
+
+    short_desc_df['Description'] = short_desc_df.apply(
+        lambda row: get_battle_description_wikipedia_2_paragraphs(row['Battle'], row['Year'], row['Description']),
+        axis=1
+    )
+
+    df.loc[short_desc_df.index, 'Description'] = short_desc_df['Description']
+
+    return df
+
 
 #---------------------- DROP ROWS ----------------------
 def drop_rows(df):
@@ -218,11 +252,14 @@ def drop_rows(df):
 
 df = pd.read_csv("final.csv")
 
+# Apply the 2 paragraphs description update
+df = update_short_descriptions(df)
+
 # Apply the drop rows function
 #df = drop_rows(df)
 
 # Apply for ambiguous descriptions
-df = update_ambiguous_descriptions(df)
+#df = update_ambiguous_descriptions(df)
 
 # Apply the "Siege of" description update to rows with missing descriptions
 #df = update_missing_descriptions_with_siege(df)
