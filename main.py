@@ -221,21 +221,30 @@ def update_missing_descriptions(df, battle_list):
 
     return df
 
-# Update the descriptions with less than 30 words
-def update_short_descriptions(df):
-
+# Update descriptions with less than 30 words using 10000battles
+def update_short_descriptions(df, battle_list):
+    # Filter for descriptions with less than 30 words
     short_desc_df = df[df['Description'].str.split().str.len() < 30].copy()
 
-    print(short_desc_df.head())
+    # Function to get description from 10000battles
+    def get_description(row):
+        battle_url = get_battle_url_from_list(row['ID'], battle_list)
+        if battle_url:
+            print("Encontrei a batalha")
+            return get_battle_description_10000battles(battle_url)
+        else:
+            print("Não encontrei a batalha")
+        
+        return row['Description']
 
-    short_desc_df['Description'] = short_desc_df.apply(
-        lambda row: get_battle_description_wikipedia_2_paragraphs(row['Battle'], row['Year'], row['Description']),
-        axis=1
-    )
+    # Apply the description update function
+    short_desc_df['Description'] = short_desc_df.apply(get_description, axis=1)
 
-    df.loc[short_desc_df.index, 'Description'] = short_desc_df['Description']
+    # Update the original dataframe with the new descriptions
+    df.update(short_desc_df)
 
     return df
+
 
 
 #---------------------- DROP ROWS ----------------------
@@ -252,8 +261,9 @@ def drop_rows(df):
 
 df = pd.read_csv("final.csv")
 
-# Apply the 2 paragraphs description update
-df = update_short_descriptions(df)
+# Apply the 10000battles description update to rows with less than 30 words
+battle_list = get_battle_list()
+df = update_short_descriptions(df, battle_list)
 
 # Apply the drop rows function
 #df = drop_rows(df)
