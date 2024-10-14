@@ -11,17 +11,21 @@ wiki_wiki = wikipediaapi.Wikipedia(
 )
 
 # Search the description with the API of Wikipedia
-def get_battle_description_wikipedia(battle_name):
+def get_battle_description_wikipedia(battle_name,battle_year,current_description):
     # Search for the battle name with "Battle of" prefix
-    search_name = f"Battle of {battle_name}"
+    search_name = f"Siege of {battle_name} ({battle_year})"
     page = wiki_wiki.page(search_name)
     if page.exists():
         # Split the summary into paragraphs
         paragraphs = page.summary.split('\n')
-        # Return the first paragraph
-        return paragraphs[0] if paragraphs else "No description available"
+        # Return the first and second paragraph if it exists
+        if len(paragraphs) > 1:
+            print("Encontrei a batalha com 2 parágrafos - ", search_name)
+            return paragraphs[0] + " " + paragraphs[1]
+        else:
+            return paragraphs[0] if paragraphs else current_description
     else:
-        return "No description available"
+        return current_description
 
 def get_battle_description_wikipedia_siege(battle_name,battle_year):
     # Search for the battle name with "Battle of" prefix
@@ -222,7 +226,7 @@ def update_missing_descriptions(df, battle_list):
     return df
 
 # Update descriptions with less than 30 words using 10000battles
-def update_short_descriptions(df, battle_list):
+def update_short_descriptions_10000battles(df, battle_list):
     # Filter for descriptions with less than 30 words
     short_desc_df = df[df['Description'].str.split().str.len() < 30].copy()
 
@@ -246,6 +250,18 @@ def update_short_descriptions(df, battle_list):
     return df
 
 
+#Update descriptions with less than 30 words using Wikipedia
+def update_short_descriptions_wikipedia(df):
+    short_desc_df = df[df['Description'].str.split().str.len() < 30].copy()
+
+    def get_description(row):
+        return get_battle_description_wikipedia(row['Battle'],row['Year'],row['Description'])
+
+    short_desc_df['Description'] = short_desc_df.apply(get_description, axis=1)
+
+    df.update(short_desc_df)
+
+    return df
 
 #---------------------- DROP ROWS ----------------------
 def drop_rows(df):
@@ -262,8 +278,11 @@ def drop_rows(df):
 df = pd.read_csv("final.csv")
 
 # Apply the 10000battles description update to rows with less than 30 words
-battle_list = get_battle_list()
-df = update_short_descriptions(df, battle_list)
+#battle_list = get_battle_list()
+#df = update_short_descriptions_10000battles(df, battle_list)
+
+# Apply the wikipedia description update to rows with less than 30 words
+df = update_short_descriptions_wikipedia(df)
 
 # Apply the drop rows function
 #df = drop_rows(df)
