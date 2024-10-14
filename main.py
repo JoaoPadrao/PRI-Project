@@ -259,7 +259,7 @@ def drop_rows(df):
 
 # ---------------------- EXAMPLE USAGE ----------------------
 
-df = pd.read_csv("final_test.csv")
+df = pd.read_csv("final.csv")
 
 # Apply the 10000battles description update to rows with less than 30 words
 battle_list = get_battle_list()
@@ -279,5 +279,5 @@ df = update_short_descriptions(df, battle_list)
 #df = update_missing_descriptions(df,battle_list)
 
 # Save the resulting dataset
-df.to_csv("final_tes2t.csv", index=False)
+df.to_csv("final_test.csv", index=False)
 
