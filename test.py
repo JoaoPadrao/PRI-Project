@@ -5,7 +5,7 @@ def getSmallDescriptions():
     
     small_descriptions = df[df['Description'].str.split().str.len() < 30]
     #Print the lines with less than 30 words
-    print(small_descriptions)
+    #print(small_descriptions)
 
     #return csv file with the lines with less than 30 words
     #small_descriptions.to_csv("small_descriptions.csv", index=False)
