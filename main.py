@@ -48,7 +48,7 @@ def get_battle_description_wikipedia_short(battle_name, battle_year, current_des
     battle_year = str(battle_year) if battle_year else None
 
     # Search for the battle name with "Battle of" prefix.
-    search_name = f"Battle of {battle_name}"
+    search_name = f"Siege of {battle_name}"
     page = wiki_wiki.page(search_name)
     
     if page.exists():
@@ -71,7 +71,12 @@ def get_battle_description_wikipedia_short(battle_name, battle_year, current_des
                             print("Encontrei a batalha")
                             # Return the first paragraph from the specific battle page.
                             paragraphs = specific_page.summary.split('\n')
-                            return paragraphs[0] if paragraphs else "No description available"
+                            # Return the first and second paragraph if it exists
+                            if len(paragraphs) > 1:
+                                print("Encontrei a batalha com 2 parágrafos")
+                                return paragraphs[0] + " " + paragraphs[1]
+                            else:
+                                return paragraphs[0] if paragraphs else current_description
                         else:
                             print("Não encontrei a batalha")
                 return current_description
@@ -197,7 +202,10 @@ def update_missing_descriptions_with_siege(df):
 # Update the ambiguous descriptions using Wikipedia
 def update_ambiguous_descriptions(df):
     # Use 'na=False' to safely handle NaN values in the 'Description' column.
-    ambiguous_desc_df = df[df['Description'].str.endswith("to:", na=False)]
+    #ambiguous_desc_df = df[df['Description'].str.endswith("to:", na=False)]
+
+    # Filter for descriptions that has "may refer to"
+    ambiguous_desc_df = df[df['Description'].str.contains("may refer to", na=False)]
 
     # Update the descriptions using .loc to avoid SettingWithCopyWarning.
     df.loc[ambiguous_desc_df.index, 'Description'] = ambiguous_desc_df.apply(
@@ -282,13 +290,13 @@ df = pd.read_csv("final.csv")
 #df = update_short_descriptions_10000battles(df, battle_list)
 
 # Apply the wikipedia description update to rows with less than 30 words
-df = update_short_descriptions_wikipedia(df)
+#df = update_short_descriptions_wikipedia(df)
 
 # Apply the drop rows function
 #df = drop_rows(df)
 
 # Apply for ambiguous descriptions
-#df = update_ambiguous_descriptions(df)
+df = update_ambiguous_descriptions(df)
 
 # Apply the "Siege of" description update to rows with missing descriptions
 #df = update_missing_descriptions_with_siege(df)
