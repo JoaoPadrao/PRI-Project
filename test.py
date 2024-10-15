@@ -43,4 +43,41 @@ def cleanNullParticipants():
 
     df.to_csv("final.csv", index=False)
 
-cleanNullParticipants()
+#cleanNullParticipants()
+
+def cleanEmptyParticipants():
+    df = pd.read_csv("final.csv")
+
+    print(df[df['Participants'] == "[]"]['ID'])
+
+    df.loc[df['Participants'] == "[]", 'Participants'] = df.apply(
+        lambda row: (
+            [name.strip() for name in str(row['Winner']).split(',')] + 
+            [name.strip() for name in str(row['Loser']).split(',')]
+        ) if pd.notnull(row['Winner']) and pd.notnull(row['Loser']) else [], 
+        axis=1
+    )
+
+    df.to_csv("final.csv", index=False)
+
+#cleanEmptyParticipants()
+
+def cleanDuplicatesParticipants():
+    df = pd.read_csv("final.csv")
+
+    def parse_and_clean(entry):
+        try:
+            # Attempt to convert the string to a list
+            items = ast.literal_eval(entry)
+            if isinstance(items, list):
+                # Remove duplicates and sort if it's a list
+                return list(sorted(set(items)))
+        except (ValueError, SyntaxError):
+            # If parsing fails, return the original entry
+            return entry
+        
+    df['Participants'] = df['Participants'].apply(parse_and_clean)
+    
+    df.to_csv("final.csv", index=False)
+
+cleanDuplicatesParticipants()
