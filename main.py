@@ -13,7 +13,7 @@ wiki_wiki = wikipediaapi.Wikipedia(
 # Search the description with the API of Wikipedia
 def get_battle_description_wikipedia(battle_name,battle_year,current_description):
     # Search for the battle name with "Battle of" prefix
-    search_name = f"Siege of {battle_name} ({battle_year})"
+    search_name = f"Battle of {battle_name} ({battle_year})"
     page = wiki_wiki.page(search_name)
     if page.exists():
         # Split the summary into paragraphs
@@ -33,7 +33,7 @@ def get_battle_description_wikipedia_siege(battle_name,battle_year):
     if isinstance(battle_year, str) and battle_year.startswith('-'):
         format_battle = format_battle_name_BC(battle_year)
 
-    search_name = f"Battle of {battle_name} {format_battle}"
+    search_name = f"Siege of {battle_name} {format_battle}"
     page = wiki_wiki.page(search_name)
     if page.exists():
         # Split the summary into paragraphs
