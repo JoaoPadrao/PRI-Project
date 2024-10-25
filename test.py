@@ -85,7 +85,7 @@ def cleanDuplicatesParticipants():
 def dropColumns():
     df = df = pd.read_csv("final.csv")
 
-    columns_to_drop = ['Participant 1', 'Participant 2', 'Polygon']
+    columns_to_drop = ['Page']
 
     df = df.drop(columns=columns_to_drop)
     df.to_csv("final.csv", index=False)
