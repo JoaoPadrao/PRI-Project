@@ -1,0 +1,15 @@
+
+{
+    "add-field-type": [],
+    "add-field": [
+        {
+            "name": "ID",
+            "type": "string"
+        },
+        {
+            "name": "Country",
+            "type": "string"
+
+        }
+    ] 
+}
