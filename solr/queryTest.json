@@ -1,0 +1,6 @@
+{
+    "query": "Country:Portugal AND ID:Amarante*",
+    "params": {
+        "defType": "edismax"
+    }
+}
