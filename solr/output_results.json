@@ -3,7 +3,7 @@
     "status": 0,
     "QTime": 2,
     "params": {
-      "json": "{\"query\": \"Country:Portugal AND ID:Amarante*\", \"params\": {\"defType\": \"edismax\"}}"
+      "json": "{\"query\": \"Country:Portugal\", \"params\": {\"defType\": \"edismax\", \"fq\": \"Year:[1900 TO 2000]\", \"sort\": \"Year desc\", \"start\": 0, \"rows\": 20}}"
     }
   },
   "response": {
@@ -12,28 +12,32 @@
     "numFoundExact": true,
     "docs": [
       {
-        "ID": "Amarante1809",
+        "ID": "Alfarrobeira1986",
         "Country": "Portugal",
-        "Latitude": 41.269634,
-        "Longitude": -8.082649,
-        "Name": "Amarante",
-        "Year": 1809,
+        "Latitude": 39.325794,
+        "Longitude": -8.861369,
+        "Name": "Alfarrobeira",
+        "Year": 1986,
         "Participants": [
-          "['Amarante', 'British', 'French', 'Napoleonic', 'Portugal']"
+          "['Aflonso V', 'Duke of Coimbra']"
         ],
         "Winner": [
-          "France"
+          "Aflonso V"
         ],
         "Loser": [
-          "Portugal"
+          "Duke of Coimbra"
         ],
         "Theatre": "Land",
         "Massacre": "No",
-        "Description": "Following French capture of Oporto, Portuguese Brigadier Francisco Silveira held off French General Louis Loison\u2019s repeated attempts to cross the vital bridge at Amarante on the Tamega River, northeast of Oporto. Loison eventually stormed the bridge, but Silveira\u2019s three-week delaying action helped provide time for British reinforcements to reach Portugal.",
-        "id": "6222c1d2-5542-4ed3-9e4e-a0bef7e74496",
-        "Name_War": "Napoleonic Wars (Peninsula Campaign)",
-        "_version_": 1815340527510355968,
-        "_root_": "6222c1d2-5542-4ed3-9e4e-a0bef7e74496"
+        "Description": "The Battle of Alfarrobeira (Portuguese pronunciation: [alf\u0250\u0281u\u02c8\u03b2\u0250j\u027e\u0250]) took place on 20 May 1449. It was a confrontation between the forces commanded by King Afonso V of Portugal and his uncle Afonso, Duke of Braganza, against the army of the rebellious Peter, Duke of Coimbra. The place was Vialonga, near Lisbon, at the margins of the creek of Alfarrobeira. The result was the clear defeat and death of the Duke of Coimbra and the establishment of the Braganzas as the most powerful House of Portugal.",
+        "id": "33888a61-d451-4ede-83dd-8338f7b63c7b",
+        "Name_War": "['Portuguese War']",
+        "Lehmann_Zhukov_Scale": 3.0,
+        "Alternative_Sources_Consulted": [
+          "Encyclopedia of Warfare, Showalter, 2014, p266"
+        ],
+        "_version_": 1815465670379307010,
+        "_root_": "33888a61-d451-4ede-83dd-8338f7b63c7b"
       }
     ]
   }
