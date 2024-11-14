@@ -1,8 +1,8 @@
 {
-    "query": "Country:France",
+    "query": "Country:Portugal AND Description:*Alfonso*",
     "params": {
         "defType": "edismax",
-        "fq": "Year:[1800 TO 1820]",
+        "fq": "Year:[1100 TO 1200]",
         "sort": "Year desc",
         "start": 0,
         "rows": 20

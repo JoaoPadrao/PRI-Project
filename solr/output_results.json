@@ -1,43 +1,92 @@
 {
   "responseHeader": {
     "status": 0,
-    "QTime": 2,
+    "QTime": 114,
     "params": {
-      "json": "{\"query\": \"Country:Portugal\", \"params\": {\"defType\": \"edismax\", \"fq\": \"Year:[1900 TO 2000]\", \"sort\": \"Year desc\", \"start\": 0, \"rows\": 20}}"
+      "json": "{\"query\": \"Country:Portugal AND Description:*Alfonso*\", \"params\": {\"defType\": \"edismax\", \"fq\": \"Year:[1100 TO 1200]\", \"sort\": \"Year desc\", \"start\": 0, \"rows\": 20}}"
     }
   },
   "response": {
-    "numFound": 1,
+    "numFound": 3,
     "start": 0,
     "numFoundExact": true,
     "docs": [
       {
-        "ID": "Alfarrobeira1986",
+        "ID": "Alcacer do Sol1158",
         "Country": "Portugal",
-        "Latitude": 39.325794,
-        "Longitude": -8.861369,
-        "Name": "Alfarrobeira",
-        "Year": 1986,
+        "Latitude": 38.3725,
+        "Longitude": -8.511008,
+        "Name": "Alcacer do Sol",
+        "Year": 1158,
         "Participants": [
-          "['Aflonso V', 'Duke of Coimbra']"
+          "['Christian', 'England', 'Muslims', 'Portugal', 'Spain']"
         ],
         "Winner": [
-          "Aflonso V"
+          "Portugal, England"
         ],
         "Loser": [
-          "Duke of Coimbra"
+          "Almohad Caliphate"
         ],
         "Theatre": "Land",
         "Massacre": "No",
-        "Description": "The Battle of Alfarrobeira (Portuguese pronunciation: [alf\u0250\u0281u\u02c8\u03b2\u0250j\u027e\u0250]) took place on 20 May 1449. It was a confrontation between the forces commanded by King Afonso V of Portugal and his uncle Afonso, Duke of Braganza, against the army of the rebellious Peter, Duke of Coimbra. The place was Vialonga, near Lisbon, at the margins of the creek of Alfarrobeira. The result was the clear defeat and death of the Duke of Coimbra and the establishment of the Braganzas as the most powerful House of Portugal.",
-        "id": "33888a61-d451-4ede-83dd-8338f7b63c7b",
-        "Name_War": "['Portuguese War']",
-        "Lehmann_Zhukov_Scale": 3.0,
-        "Alternative_Sources_Consulted": [
-          "Encyclopedia of Warfare, Showalter, 2014, p266"
+        "Description": "King Alfonso I of Portugal took advantage of internal instability among the Muslims of Portugal and Spain by making considerable advances against the Moors and taking Lisbon. Aided by Crusader forces from England, he then marched southeast against the key fortress of Alcacer do Sol on the Sado Estuary. The fortress was seized and held by Christian forces for 40 years.",
+        "id": "c31dec7e-7255-4ba2-974f-4e2960075a20",
+        "Name_War": "Christian Reconquest of Portugal",
+        "_version_": 1815628097687388161,
+        "_root_": "c31dec7e-7255-4ba2-974f-4e2960075a20"
+      },
+      {
+        "ID": "Lisbon1147",
+        "Country": "Portugal",
+        "Latitude": 38.72225,
+        "Longitude": -9.139337,
+        "Name": "Lisbon",
+        "Year": 1147,
+        "Participants": [
+          "['Christian', 'German', 'Lisbon', 'Muslims', 'Palestine', 'Portugal']"
         ],
-        "_version_": 1815465670379307010,
-        "_root_": "33888a61-d451-4ede-83dd-8338f7b63c7b"
+        "Winner": [
+          "Portugal, English Crusaders, Flemish Crusaders, German Crusaders"
+        ],
+        "Loser": [
+          "Portuguese Muslims"
+        ],
+        "Theatre": "Land and Sea",
+        "Massacre": "Battle followed by massacre",
+        "Description": "Launching a renewed offensive against the Muslims of central Portugal, King Alfonso I seized Santarem (March 1147) then marched south against the well-fortified city of Lisbon. A fleet with about 12,000 English, Flemish and German Crusaders on their way to Palestine was enlisted and, after a five-month siege, Lisbon fell by assault, followed by a notorious massacre.",
+        "id": "13cef763-b419-403c-867c-80ae59d6d0e5",
+        "Name_War": "Christian Reconquest of Portugal",
+        "Lehmann_Zhukov_Scale": 2.0,
+        "Alternative_Sources_Consulted": [
+          "Encyclopedia of Warfare, Showalter, 2014, p218"
+        ],
+        "_version_": 1815628098698215429,
+        "_root_": "13cef763-b419-403c-867c-80ae59d6d0e5"
+      },
+      {
+        "ID": "Arcos de Valdevez1140",
+        "Country": "Portugal",
+        "Latitude": 41.845387,
+        "Longitude": -8.425992,
+        "Name": "Arcos de Valdevez",
+        "Year": 1140,
+        "Participants": [
+          "['Muslims', 'Portugal']"
+        ],
+        "Winner": [
+          "Portugal"
+        ],
+        "Loser": [
+          "Castille"
+        ],
+        "Theatre": "Land",
+        "Massacre": "No",
+        "Description": "The Battle of Valdevez (Portuguese: Torneio de Arcos de Valdevez) took place at Arcos de Valdevez on the banks of the river Vez between the Kingdom of Le\u00f3n and the Kingdom of Portugal in the summer of 1140 or 1141. It is one of only two pitched battles that Alfonso VII of Le\u00f3n is known to have fought, and the only of the two not coincident with a siege. His opponent at Valdevez was his cousin Afonso I of Portugal. An armistice signed after the battle eventually became the Treaty of Zamora (1143), and ended Portugal's first war of independence. The area of the battle became known as the Veiga or Campo da Matan\u00e7a, the \"field of killing\".",
+        "id": "056fa9c5-566a-46de-a8e0-7aa8ba0d0491",
+        "Name_War": "Portuguese-Castillian Wars",
+        "Lehmann_Zhukov_Scale": 1.0,
+        "_version_": 1815628097856208896,
+        "_root_": "056fa9c5-566a-46de-a8e0-7aa8ba0d0491"
       }
     ]
   }
