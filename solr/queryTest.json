@@ -1,6 +1,10 @@
 {
-    "query": "Country:Portugal AND ID:Amarante*",
+    "query": "Country:Portugal",
     "params": {
-        "defType": "edismax"
+        "defType": "edismax",
+        "fq": "Year:[1900 TO 2000]",
+        "sort": "Year desc",
+        "start": 0,
+        "rows": 20
     }
 }
