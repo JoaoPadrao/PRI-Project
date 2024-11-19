@@ -1,24 +1,4 @@
 {
-    "add-field-type": [
-        {
-            "name": "text_insensitive",
-            "class": "solr.TextField",
-            "indexAnalyzer": {
-                "tokenizer": { "class": "solr.StandardTokenizerFactory" },
-                "filters": [
-                    { "class": "solr.LowerCaseFilterFactory" },
-                    { "class": "solr.ASCIIFoldingFilterFactory", "preserveOriginal": "false" }
-                ]
-            },
-            "queryAnalyzer": {
-                "tokenizer": { "class": "solr.StandardTokenizerFactory" },
-                "filters": [
-                    { "class": "solr.LowerCaseFilterFactory" },
-                    { "class": "solr.ASCIIFoldingFilterFactory", "preserveOriginal": "false" }
-                ]
-            }
-        }
-    ],
     "add-field": [
         {
             "name": "ID",
@@ -29,7 +9,7 @@
         },
         {
             "name": "Country",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true
         },
@@ -47,7 +27,7 @@
         },
         {
             "name": "Name",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true
         },
@@ -59,46 +39,46 @@
         },
         {
             "name": "Participants",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true,
             "multiValued": true
         },
         {
             "name": "Winner",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true,
             "multiValued": true
         },
         {
             "name": "Loser",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true,
             "multiValued": true
         },
         {
             "name": "Theatre",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true
         },
         {
             "name": "Massacre",
-            "type": "text_insensitive", 
+            "type": "string", 
             "indexed": true,
             "stored": true
         },
         {
             "name": "Description",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true
         },
         {
             "name": "Name_War",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true
         },
@@ -110,7 +90,7 @@
         },
         {
             "name": "Alternative_Sources_Consulted",
-            "type": "text_insensitive",
+            "type": "string",
             "indexed": true,
             "stored": true,
             "multiValued": true
