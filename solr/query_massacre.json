@@ -1,0 +1,9 @@
+{
+    "query": "(Germany OR United States) massacre",
+    "params": {
+        "defType": "edismax",
+        "qf": "Description^3 Participants^2 Name Country",
+        "start": 0,
+        "rows": 30
+    }
+}
