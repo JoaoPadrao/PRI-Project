@@ -4,6 +4,7 @@
             "name": "text_insensitive",
             "class": "solr.TextField",
             "indexAnalyzer": {
+           
                 "tokenizer": { "class": "solr.StandardTokenizerFactory" },
                 "filters": [
                     { "class": "solr.LowerCaseFilterFactory" },
