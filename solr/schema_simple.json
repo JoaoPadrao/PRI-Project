@@ -2,14 +2,14 @@
     "add-field": [
         {
             "name": "ID",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true,
             "required": true
         },
         {
             "name": "Country",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true
         },
@@ -27,7 +27,7 @@
         },
         {
             "name": "Name",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true
         },
@@ -39,46 +39,46 @@
         },
         {
             "name": "Participants",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true,
             "multiValued": true
         },
         {
             "name": "Winner",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true,
             "multiValued": true
         },
         {
             "name": "Loser",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true,
             "multiValued": true
         },
         {
             "name": "Theatre",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true
         },
         {
             "name": "Massacre",
-            "type": "string", 
+            "type": "text_general", 
             "indexed": true,
             "stored": true
         },
         {
             "name": "Description",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true
         },
         {
             "name": "Name_War",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true
         },
@@ -90,7 +90,7 @@
         },
         {
             "name": "Alternative_Sources_Consulted",
-            "type": "string",
+            "type": "text_general",
             "indexed": true,
             "stored": true,
             "multiValued": true
