@@ -1,8 +1,0 @@
-{
-    "query": "Massacres in (Germany OR United States)",
-    "params": {
-        "start": 0,
-        "rows": 30,
-        "df": "Description"
-    }
-}
