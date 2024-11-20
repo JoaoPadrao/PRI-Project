@@ -1,8 +1,0 @@
-{
-    "query": "Description:(winter OR cold OR december OR january OR snow)",
-    "params": {
-        "defType": "edismax",
-        "qf": "Description",
-        "sort": "Year desc"
-    }
-}
