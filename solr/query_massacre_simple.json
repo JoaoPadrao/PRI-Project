@@ -1,0 +1,7 @@
+{
+    "query": "Massacres in (Germany OR United States)",
+    "q.op": "AND",
+    "start": 0,
+    "rows": 30,
+    "df": "Description"
+}
