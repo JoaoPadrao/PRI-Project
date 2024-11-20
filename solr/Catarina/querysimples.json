@@ -1,0 +1,9 @@
+{
+    "query": "winter",
+    "params": {
+        "q.op": "AND",
+        "start": 0,
+        "rows": 30,
+        "df": "Description"
+    }
+}
