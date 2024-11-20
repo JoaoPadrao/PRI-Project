@@ -23,6 +23,7 @@ def solr_to_trec(solr_response, run_id="run0"):
     try:
         # Extract the document results from the Solr response
         docs = solr_response["response"]["docs"]
+        #print(docs)
 
         # Enumerate through the results and write them in TREC format
         for rank, doc in enumerate(docs, start=1):
