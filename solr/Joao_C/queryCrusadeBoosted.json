@@ -2,6 +2,7 @@
     "query": "Crusade",
     "params": {
         "q.op": "AND",
+        "fl": "*,score",
         "start": 0,
         "rows": 30,
         "defType": "edismax",

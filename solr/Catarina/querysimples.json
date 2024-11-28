@@ -1,7 +1,8 @@
 {
-    "query": "winter",
+    "query": "summer",
     "params": {
         "q.op": "AND",
+        "fl": "*,score",
         "start": 0,
         "rows": 30,
         "df": "Description"

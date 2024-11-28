@@ -1,10 +1,11 @@
 {
-    "q": "winter",
+    "query": "summer",
     "params": {
         "q.op": "AND",
-        "defType": "edismax",
-        "qf": "Description^5 Participants^4 Country ^3 Name_War^2 Winner",
+        "fl": "*,score",
         "start": 0,
-        "rows": 30
+        "rows": 30,
+        "defType": "edismax",
+        "qf": "Description^5 Participants^4 Country^3 Name_War^2 Winner"   
     }
 }

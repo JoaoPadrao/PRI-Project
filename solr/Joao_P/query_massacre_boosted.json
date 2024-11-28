@@ -1,8 +1,9 @@
 {
-    "query": "(Germany OR United States) massacre",
+    "query": "Massacres in (Germany OR United States)",
     "params": {
         "defType": "edismax",
-        "qf": "Description^3 Participants^2 Name Country",
+        "fl": "*,score",
+        "qf": "Description^5 Participants^4 Country^3 Name_War^2 Winner",
         "start": 0,
         "rows": 30
     }

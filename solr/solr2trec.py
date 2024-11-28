@@ -50,7 +50,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Load Solr response from STDIN
-    solr_response = json.load(sys.stdin)
+    # Load Solr response from the specified file
+    try:
+        with open("Joao_P/result_query_SchemaBoosted_Boosted3.json", "r") as file:
+            solr_response = json.load(file)
+    except FileNotFoundError:
+        print("Error: File 'Joao_C/output_results2.json' not found.")
+        sys.exit(1)
 
     # Convert Solr results to TREC format and write to STDOUT
     solr_to_trec(solr_response, args.run_id)
