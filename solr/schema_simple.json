@@ -2,7 +2,7 @@
     "add-field": [
         {
             "name": "ID",
-            "type": "text_general",
+            "type": "string",
             "indexed": true,
             "stored": true,
             "required": true
