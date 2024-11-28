@@ -10,6 +10,11 @@ def synonyms():
     nltk.download('averaged_perceptron_tagger_eng')
     nltk.download('wordnet')
     nltk.download('punkt_tab')
+    nltk.download('omw-1.4')
+    nltk.download('wordnet_ic')
+    nltk.download('names')
+    nltk.download('brown')
+    nltk.download('gutenberg')
 
     file_path = f'output.json'
     dataset = pd.read_json(file_path)
