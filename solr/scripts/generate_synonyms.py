@@ -16,7 +16,7 @@ def synonyms():
     nltk.download('brown')
     nltk.download('gutenberg')
 
-    file_path = f'output.json'
+    file_path = f'./output.json'
     dataset = pd.read_json(file_path)
     #print(dataset)
 
