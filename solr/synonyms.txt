@@ -3475,3 +3475,5 @@ statesman, national_leader, solon
 manner, personal_manner, way, style, mode, fashion
 vital, life-sustaining, critical, lively, full_of_life
 encircling, encircle, skirting, gird, circle
+WWI, World War I, First World War, World War 1, WW1
+WWII, World War II, Second World War, World War 2, WW2
