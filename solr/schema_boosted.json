@@ -31,7 +31,15 @@
 
                 ]
             }
+        },
+        {
+            "name": "battleVector",
+            "class": "solr.DenseVectorField",
+            "vectorDimension": 384,
+            "similarityFunction": "cosine",
+            "knnAlgorithm": "hnsw"
         }
+
     ],
     "add-field": [
         {
@@ -128,6 +136,13 @@
             "indexed": true,
             "stored": true,
             "multiValued": true
+        },
+        {
+            "name": "vector",
+            "type": "battleVector",
+            "indexed": true,
+            "stored": true
         }
+
     ]
 }
