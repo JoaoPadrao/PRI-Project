@@ -10,7 +10,7 @@
                     { "class": "solr.LowerCaseFilterFactory" },
                     { "class": "solr.ASCIIFoldingFilterFactory", "preserveOriginal": "false" },
                     { "class": "solr.EnglishPossessiveFilterFactory" },
-                    { "class": "solr.EnglishMinimalStemFilterFactory" },
+                    { "class": "solr.SnowballPorterFilterFactory", "language": "English" },
                     { "class": "solr.PhoneticFilterFactory", "encoder": "DoubleMetaphone" },
                     { "class": "solr.StopFilterFactory", "words": "stopwords.txt"},
                     { "class":"solr.SynonymGraphFilterFactory", "synonyms":"synonyms.txt", "ignoreCase":"true", "expand":"false"}
@@ -24,7 +24,7 @@
                     { "class": "solr.LowerCaseFilterFactory" },
                     { "class": "solr.ASCIIFoldingFilterFactory", "preserveOriginal": "false" },
                     { "class": "solr.EnglishPossessiveFilterFactory" },
-                    { "class": "solr.EnglishMinimalStemFilterFactory" },
+                    { "class": "solr.SnowballPorterFilterFactory", "language": "English" },
                     { "class": "solr.PhoneticFilterFactory", "encoder": "DoubleMetaphone" },
                     { "class": "solr.StopFilterFactory", "words": "stopwords.txt"},
                     { "class":"solr.SynonymGraphFilterFactory", "synonyms":"synonyms.txt", "ignoreCase":"true", "expand":"false" }
