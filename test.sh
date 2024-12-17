@@ -80,7 +80,7 @@ cat config/boosted_queries/simple_schema/qrels/qrels3.txt | ./scripts/qrels2trec
 
 # Produzir resultados para boosted schema
 cat config/boosted_queries/boosted_schema/qrels/qrels3_new.txt | ./scripts/qrels2trec.py > config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted3_new.txt
-type config\boosted_queries\boosted_schema\qrels\qrels3_new.txt | python scripts\qrels2trec.py > config\boosted_queries\boosted_schema\qrels\qrels_trec_SchemaBoosted_Boosted3_new.txt
+type config\boosted_queries\boosted_schema\qrels\qrels2_new.txt | python scripts\qrels2trec.py > config\boosted_queries\boosted_schema\qrels\qrels_trec_SchemaBoosted_Boosted2_new.txt
 
 
 # 4º PASSO: AVALIAR RESULTADOS
@@ -102,4 +102,4 @@ cat config/boosted_queries/no_schema/qrels/results_trec_No_Schema_Boosted4.txt |
 cat config/boosted_queries/simple_schema/qrels/results_trec_SchemaSimple_Boosted4.txt | ./scripts/plot_pr.py --qrels config/boosted_queries/simple_schema/qrels/qrels_trec_SchemaSimple_Boosted4.txt --output config/boosted_queries/simple_schema/images/p_r_graph_simple_schema_boosted4.png
 
 # Plotar precision-recall para boosted schema
-cat config/boosted_queries/boosted_schema/qrels/results_trec_SchemaBoosted_Boosted4.txt | ./scripts/plot_pr.py --qrels config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted4.txt --output config/boosted_queries/boosted_schema/images/p_r_graph_boosted_schema_boosted4.png
+cat config/boosted_queries/boosted_schema/qrels/results_trec_SchemaBoosted_Boosted3_new.txt | ./scripts/plot_pr.py --qrels config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted3_new.txt --output config/boosted_queries/boosted_schema/images/p_r_graph_boosted_schema_boosted4.png
