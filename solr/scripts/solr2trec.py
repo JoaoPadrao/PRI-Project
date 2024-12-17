@@ -23,7 +23,6 @@ def solr_to_trec(solr_response, run_id="run0"):
     try:
         # Extract the document results from the Solr response
         docs = solr_response["response"]["docs"]
-        #print(docs)
 
         # Enumerate through the results and write them in TREC format
         for rank, doc in enumerate(docs, start=1):
@@ -50,13 +49,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Load Solr response from STDIN
-    # Load Solr response from the specified file
-    try:
-        with open("Joao_P/result_query_SchemaBoosted_Boosted3.json", "r") as file:
-            solr_response = json.load(file)
-    except FileNotFoundError:
-        print("Error: File 'Joao_C/output_results2.json' not found.")
-        sys.exit(1)
+    solr_response = json.load(sys.stdin)
 
     # Convert Solr results to TREC format and write to STDOUT
     solr_to_trec(solr_response, args.run_id)

@@ -8,7 +8,8 @@
 ./scripts/query_solr.py --query config/simple_queries/simple_schema/queries/query3.json --uri http://localhost:8983/solr --collection wikiwar > config/simple_queries/simple_schema/results/result_query_SchemaSimple_Simple4.json
 
 # Produzir resultados para boosted schema
-./scripts/query_solr.py --query config/simple_queries/boosted_schema/queries/query3.json --uri http://localhost:8983/solr --collection wikiwar > config/simple_queries/boosted_schema/results/result_query_SchemaBoosted_Simple4.json
+./scripts/query_solr.py --query config/boosted_queries/boosted_schema/queries/query_boosted3.json --uri http://localhost:8983/solr --collection wikiwar > config/boosted_queries/boosted_schema/results/new_results.json
+python ./scripts/query_solr.py --query .\config\boosted_queries\boosted_schema\queries\query_boosted3.json --uri http://localhost:8983/solr --collection wikiwar > .\config\boosted_queries\boosted_schema\results\new_results.json
 
 
 # 2º PASSO: CONVERTER RESULTADOS SOLR PARA FORMATO TREC
@@ -20,6 +21,7 @@
 
 # Produzir resultados para boosted schema
 ./scripts/query_solr.py --query config/simple_queries/boosted_schema/queries/query1.json --uri http://localhost:8983/solr --collection wikiwar | ./scripts/solr2trec.py > config/simple_queries/boosted_schema/qrels/result_query1_trec.txt
+python3 ./scripts/query_solr.py --query config/boosted_queries/boosted_schema/queries/query_boosted3.json --uri http://localhost:8983/solr --collection wikiwar | python3 ./scripts/solr2trec.py --run-id my_run_id > config/boosted_queries/boosted_schema/qrels/result_query1_trec.txt
 
 
 # 3º PASSO: CONVERTER QRELS PARA FORMATO TREC
@@ -77,7 +79,8 @@ cat config/boosted_queries/no_schema/qrels/qrels3.txt | ./scripts/qrels2trec.py 
 cat config/boosted_queries/simple_schema/qrels/qrels3.txt | ./scripts/qrels2trec.py > config/boosted_queries/simple_schema/qrels/qrels_trec_SchemaSimple_Boosted4.txt
 
 # Produzir resultados para boosted schema
-cat config/boosted_queries/boosted_schema/qrels/qrels3.txt | ./scripts/qrels2trec.py > config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted4.txt
+cat config/boosted_queries/boosted_schema/qrels/qrels3_new.txt | ./scripts/qrels2trec.py > config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted3_new.txt
+type config\boosted_queries\boosted_schema\qrels\qrels3_new.txt | python scripts\qrels2trec.py > config\boosted_queries\boosted_schema\qrels\qrels_trec_SchemaBoosted_Boosted3_new.txt
 
 
 # 4º PASSO: AVALIAR RESULTADOS
@@ -89,7 +92,7 @@ src/trec_eval/trec_eval config/boosted_queries/no_schema/qrels/qrels_trec_No_Sch
 src/trec_eval/trec_eval config/boosted_queries/simple_schema/qrels/qrels_trec_SchemaSimple_Boosted4.txt config/boosted_queries/simple_schema/qrels/results_trec_SchemaSimple_Boosted4.txt
 
 # Avaliar resultados para boosted schema
-src/trec_eval/trec_eval config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted4.txt config/boosted_queries/boosted_schema/qrels/results_trec_SchemaBoosted_Boosted4.txt
+src/trec_eval/trec_eval config/boosted_queries/boosted_schema/qrels/qrels_trec_SchemaBoosted_Boosted3_new.txt config/boosted_queries/boosted_schema/qrels/results_trec_SchemaBoosted_Boosted3_new.txt
 
 # 5º PASSO: PLOTAR PRECISION-RECALL
 # Plotar precision-recall para no schema
