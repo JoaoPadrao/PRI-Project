@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solr Query Interface</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Solr Query Interface</title>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
 <body>
     <h1>Solr Query Interface</h1>
 
@@ -25,60 +25,8 @@
     </form>
 
     <!-- Query Results -->
+    <script src="result.js"></script>
     <div id="queryResults" class="results"></div>
-    <script>
-        document.getElementById('queryForm').addEventListener('submit', async function (event) {
-            event.preventDefault();
-
-            // Retrieve form data
-            const query = document.getElementById('query').value;
-            const start = document.getElementById('start').value;
-            const rows = document.getElementById('rows').value;
-
-            // Construct Solr query payload
-            const solrQueryPayload = {
-                query: query,
-                params: {
-                    "q.op": "AND",
-                    "start": parseInt(start),
-                    "rows": parseInt(rows),
-                    "defType": "edismax",
-                    "qf": "Description^5 Participants^4 Country^3 Name_War^2 Winner"
-                }
-            };
-
-            try {
-                // Send POST request to Solr
-                const response = await axios.post('http://localhost:8983/solr/wikiwar/query', solrQueryPayload, {
-                    withCredentials: true
-                });
-                // Render results
-                const resultsDiv = document.getElementById('queryResults');
-                resultsDiv.innerHTML = ''; // Clear previous results
-
-                if (response.data.response && response.data.response.docs) {
-                    const docs = response.data.response.docs;
-
-                    if (docs.length > 0) {
-                        const list = document.createElement('ul');
-                        docs.forEach(doc => {
-                            const listItem = document.createElement('li');
-                            listItem.textContent = JSON.stringify(doc, null, 2); // Display document fields
-                            list.appendChild(listItem);
-                        });
-                        resultsDiv.appendChild(list);
-                    } else {
-                        resultsDiv.textContent = 'No results found.';
-                    }
-                } else {
-                    resultsDiv.textContent = 'Invalid response from Solr.';
-                }
-            } catch (error) {
-                console.error('Error executing Solr query:', error);
-                const resultsDiv = document.getElementById('queryResults');
-                resultsDiv.textContent = 'Error retrieving results. Check console for details.';
-            }
-        });
-    </script>
+    
 </body>
 </html>
