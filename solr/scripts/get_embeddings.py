@@ -22,5 +22,5 @@ if __name__ == "__main__":
         combined_text = name + " " + descriptions
         document["vector"] = get_embedding(combined_text)
 
-    with open("solr/output1.json", "w") as f:
+    with open("solr/output1.json", "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
