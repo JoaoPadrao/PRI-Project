@@ -12,7 +12,10 @@ h1 {
     margin-top: 60px;
     color: #444;
 }
-
+a {
+    text-decoration: none; 
+    color: inherit;       
+}
 .navbar {
     display: flex;
     justify-content: center;
@@ -29,7 +32,6 @@ h1 {
     color: white;
 }
 
-/* Battle Detail Styles */
 .battle-detail {
     margin: 40px auto;
     padding: 20px;
@@ -55,7 +57,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Detalhes do Resultado da Batalha */
 .battle-info {
     margin-bottom: 20px;
     padding: 15px;
@@ -83,7 +84,6 @@ h1 {
     color: #333;
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 20px;
@@ -101,7 +101,6 @@ footer span {
     color: #333;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     .battle-detail {
         width: 90%;

@@ -60,7 +60,6 @@ def battle_detail(battle_id):
         print("ENCODED", decoded_battle_id)
         solr_query = f'ID:"{decoded_battle_id}"'
 
-        # Agora podemos utilizar o battle_id codificado para a consulta Solr
         uri = "http://localhost:8983/solr/wikiwar/select"
         params = {
             "q": solr_query,  
@@ -73,14 +72,31 @@ def battle_detail(battle_id):
         if data['response']['numFound'] == 0:
             return "Battle not found", 404
 
-        # Extrair os detalhes da batalha
         battle = data['response']['docs'][0]
         
+        def flatten_list(nested_list):
+            """Helper function to flatten a list of lists into a single list."""
+            flattened = []
+            for item in nested_list:
+                if isinstance(item, list):
+                    flattened.extend(flatten_list(item))  
+                else:
+                    flattened.append(item)
+            return flattened
+        
+        if isinstance(battle.get('Participants'), list):
+            battle['Participants'] = ', '.join(flatten_list(battle['Participants']))
+        if isinstance(battle.get('Winner'), list):
+            battle['Winner'] = ', '.join(flatten_list(battle['Winner']))
+        if isinstance(battle.get('Loser'), list):
+            battle['Loser'] = ', '.join(flatten_list(battle['Loser']))
+        if isinstance(battle.get('Name_War'), list):
+            battle['Name_War'] = ', '.join(flatten_list(battle['Name_War']))
+
         return render_template('battle_detail.html', battle=battle)
     
     except requests.exceptions.RequestException as e:
         return f"Error fetching battle details: {str(e)}", 500
-
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
