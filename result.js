@@ -54,7 +54,7 @@ document.getElementById('queryForm').addEventListener('submit', async (e) => {
                 <h2 class="battle-title">${title}</h2>
                 <p class="battle-description">${description}</p>
                 <p class="battle-year">Year: ${year}</p>
-                <a href="/battle-detail/${doc.ID}" class="see-more-btn">See more details about this battle</a>
+                <a href="http://127.0.0.1:5000/battle-detail/${doc.ID}" class="see-more-btn">See more details about this battle</a>
             `;
 
             // Adicionar ao contêiner de resultados

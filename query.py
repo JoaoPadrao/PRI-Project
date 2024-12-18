@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
 import logging
+from urllib.parse import unquote
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
@@ -55,10 +56,14 @@ def query_solr():
 @app.route("/battle-detail/<battle_id>")
 def battle_detail(battle_id):
     try:
-        # Buscar detalhes da batalha no Solr
+        decoded_battle_id = unquote(battle_id)
+        print("ENCODED", decoded_battle_id)
+        solr_query = f'ID:"{decoded_battle_id}"'
+
+        # Agora podemos utilizar o battle_id codificado para a consulta Solr
         uri = "http://localhost:8983/solr/wikiwar/select"
         params = {
-            "q": f"ID:{battle_id}",
+            "q": solr_query,  
             "rows": 1,
         }
 
