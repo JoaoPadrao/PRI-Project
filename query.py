@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import requests
 import logging
@@ -20,6 +20,9 @@ def query_solr():
 
         uri = f"{solr_uri}/{collection}/select"
 
+        min_year = params.get("minYear")
+        max_year = params.get("maxYear")
+
         payload = {
             "q": params.get("q"),
             "q.op": params.get("q_op", "AND"),
@@ -29,6 +32,10 @@ def query_solr():
             "qf": params.get("qf", "Description^5 Participants^4 Country^3 Name_War^2 Winner")
         }
 
+        if min_year is not None and max_year is not None:
+            payload["fq"] = f"Year:[{min_year} TO {max_year}]"
+
+        app.logger.debug(f"Payload: {payload}")
 
         response = requests.get(uri, params=payload) 
         app.logger.debug(f"Response: {response.text}")
@@ -45,13 +52,30 @@ def query_solr():
         return jsonify({"error": "Erro desconhecido", "message": str(e)}), 500
 
 
-# Add CORS headers to all responses
-# @app.after_request
-# def add_cors_headers(response):
-#     response.headers["Access-Control-Allow-Origin"] = "*"
-#     response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-#     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-#     return response
+@app.route("/battle-detail/<battle_id>")
+def battle_detail(battle_id):
+    try:
+        # Buscar detalhes da batalha no Solr
+        uri = "http://localhost:8983/solr/wikiwar/select"
+        params = {
+            "q": f"ID:{battle_id}",
+            "rows": 1,
+        }
+
+        response = requests.get(uri, params=params)
+        data = response.json()
+        print("CONSULTA", data)
+        if data['response']['numFound'] == 0:
+            return "Battle not found", 404
+
+        # Extrair os detalhes da batalha
+        battle = data['response']['docs'][0]
+        
+        return render_template('battle_detail.html', battle=battle)
+    
+    except requests.exceptions.RequestException as e:
+        return f"Error fetching battle details: {str(e)}", 500
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)

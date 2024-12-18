@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Detail - {{ battle.ID }}</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">WIKI WAR</div>
+    </nav>
+
+    <h1>Battle Detail: {{ battle.ID }}</h1>
+    <p><strong>Description:</strong> {{ battle.Description }}</p>
+    <p><strong>Year:</strong> {{ battle.Year }}</p>
+    <p><strong>Participants:</strong> {{ battle.Participants }}</p>
+    <p><strong>Country:</strong> {{ battle.Country }}</p>
+    <p><strong>Winner:</strong> {{ battle.Winner }}</p>
+
+    <footer style="text-align:center; padding:20px; background-color:#f1f1f1;">
+        <p>&copy; <span id="year"></span> WikiWar. All rights reserved.</p>
+    </footer>
+
+    <!-- Set the current year dynamically -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
