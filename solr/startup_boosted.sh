@@ -12,7 +12,12 @@ if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
 fi
 
 # Run the Solr container
-docker run -p 8983:8983 --name $CONTAINER_NAME -v "$(pwd):/data" -d solr:9 solr-precreate $COLLECTION_NAME
+docker run -p 8983:8983 --name $CONTAINER_NAME -v "$(pwd):/data" \
+    -e SOLR_OPTS="-Dsolr.enable.cors=true \
+                  -Dsolr.cors.allow-origin='*' \
+                  -Dsolr.cors.allow-methods='GET,POST,OPTIONS' \
+                  -Dsolr.cors.allow-headers='Content-Type,Authorization'" \
+    -d solr:9 solr-precreate $COLLECTION_NAME
 
 sleep 5
 

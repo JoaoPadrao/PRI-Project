@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,11 +8,27 @@ body {
 
 h1 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 80px; 
     color: #444;
 }
 
-/* Form Styles */
+
+.navbar {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-color: #333;
+    padding: 25px 0;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo {
+    text-align: center;
+    font-size: 30px;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -43,7 +58,7 @@ input {
 
 button {
     padding: 10px 15px;
-    background-color: #007bff;
+    background-color: #333;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -53,10 +68,9 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #9e9e9e;
 }
 
-/* Results Styles */
 .results {
     margin: 20px auto;
     max-width: 800px;
@@ -67,16 +81,57 @@ button:hover {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-x: auto;
+    position: relative; 
 }
 
-.results pre {
-    margin: 0;
-    font-family: monospace;
+.results .result {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; 
+}
+
+.see-more-btn {
+    position: absolute; 
+    bottom: 10px; 
+    right: 10px; 
+    padding: 12px 20px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.see-more-btn:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+
+.battle-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.battle-description {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.battle-year {
     font-size: 14px;
-    color: #444;
+    color: #777;
+    margin-top: 10px;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     form {
         width: 90%;

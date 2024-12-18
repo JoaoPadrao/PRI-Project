@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 
 
-def fetch_solr_results(query_file, solr_uri, collection):
+def fetch_solr_results(query_file, solr_uri, collection, output_file):
     """
     Fetch search results from a Solr instance based on the query parameters.
 
@@ -16,9 +16,10 @@ def fetch_solr_results(query_file, solr_uri, collection):
     - query_file: Path to the JSON file containing Solr query parameters.
     - solr_uri: URI of the Solr instance (e.g., http://localhost:8983/solr).
     - collection: Solr collection name from which results will be fetched.
+    - output_file: Path to the file where the results will be saved.
 
     Output:
-    - Prints the JSON search results to STDOUT.
+    - Saves the JSON search results to the specified output file.
     """
     # Load the query parameters from the JSON file
     try:
@@ -38,9 +39,14 @@ def fetch_solr_results(query_file, solr_uri, collection):
         print(f"Error querying Solr: {e}")
         sys.exit(1)
 
-    # Fetch and print the results as JSON
+    # Fetch the results as JSON
     results = response.json()
-    print(json.dumps(results, indent=2))
+
+    # Write results to the specified output file
+    with open(output_file, 'w') as f:
+        json.dump(results, f, indent=2)
+    
+    print(f"Results saved to {output_file}")
 
 
 if __name__ == "__main__":
@@ -65,12 +71,18 @@ if __name__ == "__main__":
     parser.add_argument(
         "--collection",
         type=str,
-        default="courses",
+        default="wikiwar",
         help="Name of the Solr collection to query (default: 'courses').",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        required=True,
+        help="Path to the output file where the JSON results will be saved.",
     )
 
     # Parse command-line arguments
     args = parser.parse_args()
 
     # Call the function with parsed arguments
-    fetch_solr_results(args.query, args.uri, args.collection)
+    fetch_solr_results(args.query, args.uri, args.collection, args.output)
