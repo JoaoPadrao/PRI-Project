@@ -9,7 +9,7 @@
 
 # Produzir resultados para boosted schema
 ./scripts/query_solr.py --query config/boosted_queries/boosted_schema/queries/query_boosted3.json --uri http://localhost:8983/solr --collection wikiwar > config/boosted_queries/boosted_schema/results/new_results.json
-python ./scripts/query_solr.py --query .\config\boosted_queries\boosted_schema\queries\query_boosted4.json --uri http://localhost:8983/solr --collection wikiwar > .\config\boosted_queries\boosted_schema\results\new_results4.json
+python ./scripts/query_solr.py --query .\config\boosted_queries\boosted_schema\queries\query_boosted3.json --uri http://localhost:8983/solr --collection wikiwar > .\config\boosted_queries\boosted_schema\results\new_resultsssss.json
 
 
 # 2º PASSO: CONVERTER RESULTADOS SOLR PARA FORMATO TREC

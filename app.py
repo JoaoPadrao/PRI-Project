@@ -26,7 +26,7 @@ def query_solr():
 
         payload = {
             "q": params.get("q"),
-            "q.op": params.get("q_op", "AND"),
+            "q.op": params.get("q_op", "OR"),
             "start": params.get("start", 0),
             "rows": params.get("rows", 10),
             "defType": params.get("defType", "edismax"),
@@ -92,6 +92,24 @@ def battle_detail(battle_id):
             battle['Loser'] = ', '.join(flatten_list(battle['Loser']))
         if isinstance(battle.get('Name_War'), list):
             battle['Name_War'] = ', '.join(flatten_list(battle['Name_War']))
+        if isinstance(battle.get('Country'), list):
+            battle['Country'] = ', '.join(flatten_list(battle['Country']))
+        if isinstance(battle.get('Massacre'), list):
+            battle['Massacre'] = ', '.join(flatten_list(battle['Massacre']))
+        if isinstance(battle.get('Year'), list):
+            battle['Year'] = ', '.join(str(x) for x in flatten_list(battle['Year']))
+        if isinstance(battle.get('Theatre'), list):
+            battle['Theatre'] = ', '.join(flatten_list(battle['Theatre']))
+        if isinstance(battle.get('Longitude'), list):
+            battle['Longitude'] = ', '.join(str(x) for x in flatten_list(battle['Longitude']))
+        if isinstance(battle.get('Latitude'), list):
+            battle['Latitude'] = ', '.join(str(x) for x in flatten_list(battle['Latitude']))
+        if isinstance(battle.get('Description'), list):
+            battle['Description'] = ', '.join(flatten_list(battle['Description']))
+        if isinstance(battle.get('Name'), list):
+            battle['Name'] = ', '.join(flatten_list(battle['Name']))
+        if isinstance(battle.get('ID'), list):
+            battle['ID'] = ', '.join(flatten_list(battle['ID']))
 
         return render_template('battle_detail.html', battle=battle)
     
